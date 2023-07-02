@@ -1,18 +1,20 @@
 <template>
-    <div v-if="error">
+    <div class="home">
+        <div v-if="error">
         {{ error }}
-    </div>
-    <div v-if="filteredPosts.length" class="layout">
-        <div>
-            <post-view :posts="filteredPosts"></post-view>
         </div>
-        <div>
-            <RelativeTag></RelativeTag>
+        <div v-if="filteredPosts.length" class="layout">
+            <div>
+                <post-view :posts="filteredPosts"></post-view>
+            </div>
+            <div>
+                <RelativeTag :posts="posts"></RelativeTag>
+            </div>
         </div>
-    </div>
-    <div v-else>
-       <Spinner></Spinner>
-    </div>
+        <div v-else>
+        <Spinner></Spinner>
+        </div>
+    </div>   
 </template>
 
 <script>
