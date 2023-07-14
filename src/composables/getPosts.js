@@ -1,15 +1,14 @@
+import { db } from '@/firebase/config';
 import { ref } from 'vue';
 let getPosts = ()=>{
     let posts = ref([]);
     let error = ref("");
     let load = async()=>{
         try{
-          let response = await fetch('http://localhost:3000/posts');
-          if(response.status===404){
-            throw new Error('not found');
-          }
-          let datas = await response.json();
-          posts.value = datas;
+         let res = await db.collection("posts").orderBy('created_at','desc').get();
+          posts.value = res.docs.map((doc)=>{
+            return { id:doc.id, ...doc.data()};
+          })
         }catch(e){
           error.value = e.message;
         }
